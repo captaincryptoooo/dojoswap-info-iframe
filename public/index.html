@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
+
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js" crossorigin></script>
+
+    <script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Uniswap Info</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+      *{
+        font-family: 'Montserrat', sans-serif !important;
+        outline: none !important;
+      }
+      html, input, textarea, button{
+        font-family: 'Montserrat', sans-serif !important;
+      }
+      ::-webkit-scrollbar-thumb, input[type="range"] {
+         background: #222 !important;
+     }
+     ::-webkit-scrollbar {
+       width: 10px;
+     }
+     /* Handle */
+     ::-webkit-scrollbar-thumb {
+       background: #222; 
+     }
+     /* Handle on hover */
+     ::-webkit-scrollbar-thumb:hover {
+       background: #222; 
+     }
+      .changeMode{
+        display: block !important;
+      }
+      #center{
+        width:calc(100% - 220px);
+        float: right;
+        margin-top: 100px !important;
+        /*ttt-fix*/
+        margin: 0px !important;
+        float:none !important;
+        width:100% !important;
+      }
+      .loomhk .token-main-page{
+        background: #000;
+      }
+        .center-container .main-heading{
+          text-align: center;
+        }
+      .main-input-container{
+        border:1px solid #40444f;
+      }
+      .right-main>div:first-child{
+        display: none;
+      }
+  /*__________ main-logo ______________*/
+  .main-logo{
+    display: none;
+      position: fixed;
+      top: 20px;
+      left: 30px;
+      padding: 0 20px 20px 0;
+     }
+     .main-logo .small-icon{
+       display: none;
+     }
+     .main-logo svg{
+      margin-right: 20px;
+     }
+     .lightMode .main-logo svg path{
+       fill:#000;
+     }
+     .main-logo img{
+       width:180px;
+     }
+     .darkMode .main-logo .light-logo{
+      display: none !important;
+     }
+     .lightMode .main-logo .dark-logo{
+      display: none !important;
+     }
+     /*__________ main-logo end ______________*/  
+  /*__________ aside _______________*/
+   aside {
+     display: none;
+     position: fixed;
+     top: 100px;
+     left: 30px;
+     margin-bottom: 30px;
+     z-index: 100;
+     overflow: visible !important;
+     height: auto;
+     float: left;
+     width: 48px;
+     padding: 0px 0 0px 0;
+     background-color: transparent;
+   }
+   aside .scroll{
+     overflow: scroll;
+     overflow-x: hidden;
+     width:100%;
+     height: 100%;
+   }
+   aside:after{
+    content:"";
+    background-color: #191B1F;
+    width:50px;
+    height: calc(100% + 40px);
+    display: block;
+    position: absolute;
+    z-index: -1;
+    left: -12px;
+    top: -20px;
+    border-radius:50px;
+  }
+  aside.active:after{
+    display: none;
+  }
+   aside::-webkit-scrollbar {
+     width: 10px;
+   }
+
+   aside::-webkit-scrollbar-track {
+     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+     border-radius: 10px;
+     background-color: #999;
+   }
+
+   aside::-webkit-scrollbar-thumb {
+     border-radius: 10px;
+     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+     background-color: #0F0F0F;
+   }
+   aside .logo-container .logo {
+       background: none;
+       border: none;
+       cursor: pointer;
+       display: block;
+       margin: 0 auto;
+   }
+
+   aside .logo-container .logo img {
+     height: 50px;
+     margin: 0 auto;
+     display: block;
+   }
+
+   aside .wallet {
+     margin: 30px 0;
+   }
+
+   aside .wallet img, aside .wallet svg  {
+     width: 20px;
+     margin: 0 auto;
+     display: block;
+   }
+   
+   
+  .lightMode aside .scroll ul:nth-child(3) li a svg{
+      stroke-width: 1px;
+      stroke: #000;
+      fill: #000;
+    }
+    aside .scroll ul:nth-child(3) li a svg{
+      stroke-width: 1px;
+      stroke: #fff;
+      fill: #fff;
+    }
+
+    aside ul {
+     background-color: transparent;
+     border-radius: 50px;
+     border: none;
+     padding: 0px;
+     margin-bottom: 30px;
+     margin-top: 0;
+     float: left;
+     width: 100%;
+   }
+   aside ul li {
+     margin-bottom: 10px;
+     float: left;
+     width: 100%;
+     list-style: none;
+   }
+
+   aside ul li a {
+     font-size: 14px;
+     line-height: 19px;
+   }
+
+   aside ul li a span {
+     float: left;
+     opacity: 0;
+     color: #fff;
+     display: none;
+   }
+
+   aside ul li a .img-container {
+     float: left;
+     width: 24px;
+     height: 24px;
+     border-radius: 50%;
+     margin-right: 10px;
+     text-align: center;
+     padding-top: 0px;
+   }
+
+   aside ul li a img, aside ul li a svg {
+     height: 20px;
+     width: auto;
+     max-width: 20px;
+     display: block;
+     margin: 0 auto;
+   }
+
+   aside ul li a.active .img-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   }
+   aside ul li a.active .img-container svg:not(aside.active ul li a.active .img-container svg){
+    height:18px;
+   }
+   /* aside ul li a.active .img-container:before{
+    content:"";
+    height:30px;
+    width:30px;
+    position: absolute;
+    top:-6px;
+    left:-6px;
+    z-index: -1;
+    background-color: #D23D1C;
+   } */
+   aside.active {
+     width: 175px !important;
+     background-color: #000;
+   }
+   aside.active ul li a.active .img-container svg path{
+     fill: #D23D1C;
+   }
+   aside ul li a.active span{
+    color: #D23D1C;
+   }
+   aside.active ul li a.active .img-container {
+     background-color: transparent;
+   }
+   aside ul:last-child{
+    margin-bottom: 20px !important;
+   }
+   aside ul li:last-child {
+     margin-bottom: 0 !important;
+   }
+
+   aside.active ul {
+     border-radius: 30px;
+   }
+
+   aside.active ul li a span {
+     opacity: 1;
+     display: block;
+     font-weight: 600;
+   }
+   .lightMode aside.active{
+      background-color: #f7f8fa;
+    }
+    .lightMode aside.active ul li a.active .img-container{
+      background-color: #D23D1C;
+    }
+    .lightMode aside.active ul li a svg path {
+      fill: #000;
+    }
+   /*__________ aside end _______________*/
+
+   /*___________ top-header-right ___________*/
+   .top-right-header{
+     display: none;
+     position: fixed;
+     top:20px;
+     right:20px;
+     z-index: 40;
+   }
+   .top-right-header .btn{
+        border-radius: 4px !important;
+        float:left !important;
+        font-size: 14px;
+        font-weight: normal;
+        
+        
+        color: #fff;
+    background-color: #272727;
+    border-radius: 20px;
+    font-size: 14px;
+    height: 40px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 10px;
+      }
+      .top-right-header button:last-child {
+          margin-left: 10px;
+          height: 40px;
+          border: none;
+          border-radius: 4px;
+          width:38px;
+      }
+      .darkMode .top-right-header button:last-child {
+        background-color: #272727;
+      }
+        .darkMode .top-right-header button:last-child svg{
+          stroke:#fff;
+        }
+      .mydropdown{float:left;}
+      .mydropdown.ml-fix{margin-left:10px}
+      .mydropdown.margin-fix .btn{margin-right:0px;}
+      .mydropdown .dropdown{
+        align-items: flex-start;
+        background-color: rgb(25, 27, 31);
+        box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+        border-radius: 12px;
+        display: flex;
+        display: none;
+        flex-direction: column;
+        font-size: 16px;
+        overflow: auto;
+        padding: 16px;
+        position: absolute;
+        top: 64px;
+        right:0px;
+        width: 210px;
+        z-index: 99;
+      }
+      .lightMode .top-right-header .mydropdown .btn{
+        background-color: #f1f1f1 !important;
+        color:#000 !important
+      }
+      .mydropdown.active .dropdown{
+        display: block;
+      }
+      .mydropdown svg{
+        width: 16px;
+        margin-right: 0px !important;
+      }
+      .mydropdown .dropdown h4{
+        color: rgb(195, 197, 203);
+        /* font-weight: 400; */
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size:16px;
+      }
+      .mydropdown .dropdown ul {
+        width:100%;
+        padding:0px;
+        margin:0px;
+      }
+      .mydropdown .dropdown ul li{
+        width: 100%;
+        float:left;
+        margin-bottom: 12px;
+        list-style: none;
+      }
+      .mydropdown .dropdown ul li a{
+        margin-left: 0;
+        color: #fff;
+        padding-left: 0px !important;
+      }
+      .mydropdown .dropdown ul li:last-child{
+        margin-bottom: 0;
+      }
+      .mydropdown .dropdown ul li.active{
+        background-color: rgb(33, 36, 41);
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 8px;
+        width: calc(100% - 20px);
+      }
+      .mydropdown .dropdown ul li .main-link{
+        display: flex;
+        justify-content: space-between;
+        width:100%;
+      }
+      .mydropdown .dropdown ul li .main-link span{
+        color:#fff;
+      }
+      .mydropdown .dropdown ul li.active .main-link span.active{
+        background-color: rgb(39, 174, 96);
+        border-radius: 50px;
+        height: 9px;
+        width: 9px;
+        margin-top: 3px;
+      }
+   /*____________ top-header-right end ____________*/
+
+   .token-main-page {
+     padding-top: 0px !important;
+   }
+   .token-main-page .main-container{
+     max-width: initial;
+   }
+   .token-main-page .top-row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+   }
+   .token-main-page .top-row>div{
+     width:24%;
+     gap: 0px;
+   }
+   .token-main-page .top-row .my-flex-wrap{
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+   }
+   .token-main-page .top-row .my-flex-wrap>div{
+    margin-bottom: 10px;
+   }
+   .token-main-page .top-row>div:last-child{
+     width:100%;
+     margin-top: 10px;
+   }
+   .token-main-page .search-bar>div{
+     width:100%;
+   }
+
+   /*__________ lightMode _____________*/
+   /* .lightMode .token-main-page{
+        background: #fff !important;
+    }
+
+    .lightMode .token-main-page .top-row>div{
+        background-color: #e1e1e1;
+        border-color:#e1e1e1;
+    }
+    .lightMode .token-main-page .top-row>div:last-child{
+        background-color: #fff;
+        border-color:#e1e1e1;
+    } */
+   @media(max-width:1600px){
+    #center{
+      width: calc(100% - 10%);
+      float: right;
+      margin: 0 5%;
+    }
+   }
+   @media(max-width:1400px){
+    aside {
+        height: calc(100% + 40px);
+    }
+    aside .scroll {
+        height: 80%;
+    }
+   }
+   @media(max-width:1200px){
+    #center{
+      margin: 0 0 10% 0;
+    }
+   }
+   @media(max-width:768px){
+    #center{
+      margin: 0;
+      float: none;
+      width: 100%;
+    }
+    .main-logo{
+        top:26px;
+        left:20px;
+      }
+      .main-logo img{
+        display: none;
+      }
+      .main-logo .small-icon{
+         display: block;
+         height: 32px;
+         float: right;
+         width: auto;
+      }
+      .main-logo svg {
+          margin-top: 4px;
+      }
+    aside {
+           left:-50px;
+       }
+      aside.active{
+        width: 240px !important;
+        background-color: #000;
+        padding-left: 20px;
+        left:0px;
+      }
+   }
+  </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root" />
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
